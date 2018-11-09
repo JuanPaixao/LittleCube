@@ -11,12 +11,12 @@ public class Player : MonoBehaviour
     [SerializeField] private string _direction;
     private RaycastHit2D _rayLeft, _rayRight, _rayUp, _rayDown;
     [SerializeField] private LayerMask _layerMask;
-    private SpriteRenderer _spriteRenderer;
     private Player_Animations _playerAnimations;
+    //private SpriteRenderer _spriteRenderer;
     void Start()
     {
+        //_spriteRenderer = GetComponent<SpriteRenderer>();
         _playerAnimations = GetComponent<Player_Animations>();
-        _spriteRenderer = GetComponent<SpriteRenderer>();
         _rb = GetComponent<Rigidbody2D>();
         _rb.velocity = Vector2.zero;
     }
@@ -24,7 +24,6 @@ public class Player : MonoBehaviour
     {
         _movHor = Input.GetAxisRaw("Horizontal");
         _movVer = Input.GetAxisRaw("Vertical");
-        _spriteRenderer.flipX = (_direction == "movingLeft") ? true : false;
         if (!end)
         {
             Check();
@@ -38,6 +37,7 @@ public class Player : MonoBehaviour
         {
             StartCoroutine(CheckGameOver());
         }
+        // _spriteRenderer.flipX = (_direction == "movingLeft") ? true : false;
     }
 
     private void Check()
@@ -102,8 +102,7 @@ public class Player : MonoBehaviour
         while (_direction == "movingRight" && !right)
         {
             _rb.transform.Translate(Vector2.right * speed);
-            yield return new WaitForSeconds(0.01f);
-            canMove = false;
+            yield return new WaitForSeconds(0.005f);
             isMoving = true;
         }
         isMoving = false;
@@ -113,8 +112,7 @@ public class Player : MonoBehaviour
         while (_direction == "movingLeft" && !left)
         {
             _rb.transform.Translate(Vector2.left * speed);
-            yield return new WaitForSeconds(0.01f);
-            canMove = false;
+            yield return new WaitForSeconds(0.005f);
             isMoving = true;
         }
         isMoving = false;
@@ -124,8 +122,7 @@ public class Player : MonoBehaviour
         while (_direction == "movingUp" && !up)
         {
             _rb.transform.Translate(Vector2.up * speed / 1.5f);
-            yield return new WaitForSeconds(0.01f);
-            canMove = false;
+            yield return new WaitForSeconds(0.005f);
             isMoving = true;
         }
         isMoving = false;
@@ -135,8 +132,7 @@ public class Player : MonoBehaviour
         while (_direction == "movingDown" && !down)
         {
             _rb.transform.Translate(Vector2.down * speed / 1.5f);
-            yield return new WaitForSeconds(0.01f);
-            canMove = false;
+            yield return new WaitForSeconds(0.005f);
             isMoving = true;
         }
         isMoving = false;
@@ -148,23 +144,14 @@ public class Player : MonoBehaviour
             if (moveTimes <= 0 && !end)
             {
                 _playerAnimations.isDefeated();
+                canMove = false;
             }
 
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.01f);
         }
     }
 
 
-    private void OnTriggerStay2D(Collider2D other)
-    {
-        if (other.CompareTag("Trigger"))
-        {
-            if (moveTimes > 0)
-            {
-                canMove = true;
-            }
-        }
-    }
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Trigger"))
