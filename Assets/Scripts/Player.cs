@@ -102,7 +102,7 @@ public class Player : MonoBehaviour
         while (_direction == "movingRight" && !right)
         {
             _rb.transform.Translate(Vector2.right * speed);
-            yield return new WaitForSeconds(0.005f);
+            yield return null;
             isMoving = true;
         }
         isMoving = false;
@@ -112,7 +112,7 @@ public class Player : MonoBehaviour
         while (_direction == "movingLeft" && !left)
         {
             _rb.transform.Translate(Vector2.left * speed);
-            yield return new WaitForSeconds(0.005f);
+            yield return null;
             isMoving = true;
         }
         isMoving = false;
@@ -122,7 +122,7 @@ public class Player : MonoBehaviour
         while (_direction == "movingUp" && !up)
         {
             _rb.transform.Translate(Vector2.up * speed / 1.5f);
-            yield return new WaitForSeconds(0.005f);
+            yield return null;
             isMoving = true;
         }
         isMoving = false;
@@ -132,7 +132,7 @@ public class Player : MonoBehaviour
         while (_direction == "movingDown" && !down)
         {
             _rb.transform.Translate(Vector2.down * speed / 1.5f);
-            yield return new WaitForSeconds(0.005f);
+            yield return null;
             isMoving = true;
         }
         isMoving = false;
