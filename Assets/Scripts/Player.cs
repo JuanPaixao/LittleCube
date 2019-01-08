@@ -5,7 +5,8 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] private float _movHor, _movVer;
-    public float moveTimes, speed;
+    public float speed;
+    public int moveTimes;
     public bool canMove, left, right, up, down, end, isMoving;
     private Rigidbody2D _rb;
     [SerializeField] private string _direction;
